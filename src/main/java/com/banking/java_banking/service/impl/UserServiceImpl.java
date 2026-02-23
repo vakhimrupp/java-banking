@@ -51,7 +51,11 @@ public class UserServiceImpl implements UserService {
         return BankRespone.builder()
                 .responseCode(AccountUtils.ACCOUNT_CREATION_SUCCESS)
                 .responseMessage(AccountUtils.ACCOUNT_CREATION_MESSAGE)
-                .accountInfo(AccountInfo.builder().build())
+                .accountInfo(AccountInfo.builder()
+                        .accountNumber(savedUser.getAccountNumber())
+                        .accountBalance(savedUser.getAccountBalance())
+                        .accountName(savedUser.getFirstName() + " " + savedUser.getLastName())
+                        .build())
                 .build();
 
     }
