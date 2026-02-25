@@ -19,7 +19,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public BankRespone createAccount(UserRequest userRequest) {
-
         /**
          * Creating an account - saving a new user to the database
          * Check if user with email already exists
@@ -46,17 +45,15 @@ public class UserServiceImpl implements UserService {
                 .status("ACTIVE")
                 .build();
 
-
         User savedUser = userRepository.save(newUser);
         return BankRespone.builder()
                 .responseCode(AccountUtils.ACCOUNT_CREATION_SUCCESS)
                 .responseMessage(AccountUtils.ACCOUNT_CREATION_MESSAGE)
                 .accountInfo(AccountInfo.builder()
-                        .accountNumber(savedUser.getAccountNumber())
                         .accountBalance(savedUser.getAccountBalance())
-                        .accountName(savedUser.getFirstName() + " " + savedUser.getLastName())
+                        .accountNumber(savedUser.getAccountNumber())
+                        .accountName(savedUser.getFirstName() + " " + savedUser.getLastName() + " " + savedUser.getOtherNames())
                         .build())
                 .build();
-
     }
 }
