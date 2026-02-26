@@ -1,8 +1,8 @@
 package com.banking.java_banking.controller;
 
-import com.banking.java_banking.dto.BankRespone;
+import com.banking.java_banking.dto.BankResponse;
 import com.banking.java_banking.dto.UserRequest;
-import com.banking.java_banking.service.impl.UserService;
+import com.banking.java_banking.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,7 +17,7 @@ public class UserController {
     UserService userService;
 
     @PostMapping
-    public BankRespone createAccount(@RequestBody UserRequest userRequest) {
+    public BankResponse createAccount(@RequestBody UserRequest userRequest) {
         return userService.createAccount(userRequest);
     }
 }

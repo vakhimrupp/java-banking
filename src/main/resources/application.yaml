@@ -1,3 +1,25 @@
 spring:
   application:
     name: java-banking
+  datasource:
+    url: jdbc:postgresql://db.prisma.io:5432/postgres?sslmode=require
+    username: 1d5cadb6a8895937c08d136117900e7dce8b057995524ae325d97398e631eb55
+    password: sk_dMkYJ_sTIPu-9nAdsvzOk
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: vakhim.dev@gmail.com
+    password: fizkvbtylagzvmfd
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+
+
