@@ -1,9 +1,6 @@
 package com.banking.java_banking.service.impl;
 
-import com.banking.java_banking.dto.AccountInfo;
-import com.banking.java_banking.dto.BankResponse;
-import com.banking.java_banking.dto.EmailDetails;
-import com.banking.java_banking.dto.UserRequest;
+import com.banking.java_banking.dto.*;
 import com.banking.java_banking.entity.User;
 import com.banking.java_banking.repository.UserRepository;
 import com.banking.java_banking.service.EmailService;
@@ -72,4 +69,36 @@ public class UserServiceImpl implements UserService {
                         .build())
                 .build();
     }
+
+    @Override
+    public BankResponse balanceEnquiry(EnquiryRequest enquiryRequest) {
+        //Check if the provided account number exist in database
+        boolean isAccountExist = userRepository.existsByAccountNumber(enquiryRequest.getAccountNumber());
+        if (!isAccountExist) {
+            return BankResponse.builder()
+                    .responseCode(AccountUtils.ACCOUNT_EXISTS_CODE)
+                    .responseMessage(AccountUtils.ACCOUNT_NOT_EXIST_MESSAGE)
+                    .accountInfo(null)
+                    .build();
+        }
+
+        User foundUser = userRepository.findByAccountNumber(enquiryRequest.getAccountNumber());
+
+        return BankResponse.builder()
+                .responseCode(AccountUtils.ACCOUNT_FOUND_CODE)
+                .responseMessage(AccountUtils.ACCOUNT_FOUND_SUCCESS)
+                .accountInfo(AccountInfo.builder()
+                        .accountBalance(foundUser.getAccountBalance())
+                        .accountNumber(foundUser.getAccountNumber())
+                        .accountName(foundUser.getFirstName() + " " + foundUser.getLastName() + " " + foundUser.getOtherNames())
+                        .build())
+                .build();
+    }
+
+    @Override
+    public String nameEnquiry(EnquiryRequest enquiryRequest) {
+        return "";
+    }
+
+
 }
